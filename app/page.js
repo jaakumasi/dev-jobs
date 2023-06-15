@@ -1,9 +1,16 @@
-import Image from 'next/image'
+'use client';
+import { useEffect, useState } from 'react'
+import DashBoardBG from './components/DashBoardBG'
+import SearchAndFilter from './components/SearchAndFilter'
 
 export default function Home() {
+
   return (
-    <main>
-      
-    </main>
+    <div>
+      <DashBoardBG />
+      {/* <SearchAndFilter /> */}
+    </div>
+
+
   )
 }
