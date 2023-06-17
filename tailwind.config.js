@@ -17,9 +17,12 @@ module.exports = {
       },
     },
     screens: {
-      'lg': { 'max': '1200px' },
-      'md': { 'max': '992px' },
-      'sm': { 'max': '768px' }
+      '3xl': { 'max': '1600px' },
+      '2xl': { 'max': '1440px' },
+      'xl': { 'max': '1280' },
+      'lg': { 'max': '1024px' },
+      'md': { 'max': '768px' },
+      'sm': { 'max': '640px' }
     }
   },
   plugins: [],
