@@ -4,27 +4,36 @@ import React, { useState } from 'react';
 import { ThemeProvider } from '@emotion/react';
 import styled from '@emotion/styled';
 import './globals.css'
-import { Context } from './context';
+import { Context } from './_shared/context';
 
 export const metadata = {
   title: 'Devjobs',
   description: '',
 }
 
+const commonTheme = {
+  primary: '#5964E0',
+  hover: '#939BF4'
+}
+
 const lightTheme = {
-  body: "#F4F6F8",
-  component: "#FFFFFF",
+  ...commonTheme,
+  background: "#F4F6F8",
+  secondary: "#FFFFFF",
+  textColor: "#19202D"
 }
 
 const darkTheme = {
-  body: "#121721",
-  component: "#19202D"
+  ...commonTheme,
+  background: "#121721",
+  secondary: "#19202D",
+  textColor: "#FFFFFF"
 }
 
 const Content = styled.div`
-  background-color: ${({ theme }) => theme.body};
+  background-color: ${({ theme }) => theme.background};
   width: 100vw;
-  height: 100vh;
+  height: 100vh !important;
 `;
 
 export default function RootLayout({ children }) {
@@ -37,9 +46,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
-        <ThemeProvider theme={isLightTheme ? lightTheme : darkTheme}
-          isLightTheme={isLightTheme}
-        >
+        <ThemeProvider theme={isLightTheme ? lightTheme : darkTheme}>
           <Context.Provider value={{ toggleTheme }}>
             <Content>
               {children}
