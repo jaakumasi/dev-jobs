@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useTheme } from '@emotion/react';
 import Image from 'next/image';
-import Modal from 'react-bootstrap/Modal';
 import searchIcon from '../../public/assets/desktop/icon-search.svg';
 import locationIcon from '../../public/assets/desktop/icon-location.svg';
 import checkIcon from '../../public/assets/desktop/icon-check.svg';
 import filterIcon from '../../public/assets/mobile/icon-filter.svg';
 import useScreenWidth from '../_shared/utilities';
 import { SCREEN } from '../_shared/constants';
+
 
 export default function SearchAndFilter() {
   const theme = useTheme();
@@ -29,31 +29,35 @@ export default function SearchAndFilter() {
   </div>
 
   const mobileModal = showModal ?
-    (<div className='fixed z-30 top-0 left-0 w-screen h-screen bg-[#0000006e] flex justify-center items-center _backdrop'>
-      <div className='z-[40] w-[90%] rounded-lg' style={{ backgroundColor: `${theme.secondary}` }}>
-        {/* modal header */}
-        <div className='flex p-5 border-b-[1px]' style={{ borderColor: `${theme.background}`, borderColor: `${theme.background}` }}>
-          <Image alt='filter icon' src={locationIcon} className='mr-4' />
-          <input type='text' className='w-full pr-5 focus:outline-none' style={{ backgroundColor: `${theme.secondary}`, color: `${theme.textColor}` }}
-            placeholder='Filter by location...' />
-        </div>
-        {/* modal body */}
-        <div className='p-5'>
-          <div className='flex items-center'>
-            {checkBox}
-            <div className='font-bold min-w-fit' style={{ color: `${theme.textColor}` }}>Full time only</div>
+    (
+      // modal container
+      < div className='fixed top-0 bottom-0 left-0 right-0 flex justify-center items-center z-[9999]'>
+        {/* modal backdrop  */}
+        < div className='absolute top-0 left-0 right-0 bottom-0'
+          style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}
+          onClick={handleClose}
+        ></div >
+        {/* modal content */}
+        <div className='relative w-[90%] rounded-lg' style={{ backgroundColor: `${theme.secondary}` }}>
+          {/* modal header */}
+          <div className='py-7 pl-6 flex border-b-[1px]' style={{ borderColor: `${theme.background}` }}>
+            <Image alt='filter icon' src={locationIcon} className='mr-4' />
+            <input type='text' className='w-full pr-5 focus:outline-none' style={{ backgroundColor: `${theme.secondary}`, color: `${theme.textColor}` }}
+              placeholder='Filter by location...' />
           </div>
-          <button className='py-3 mt-5 w-full text-center rounded-lg text-white font-bold focus:outline-none search-btn' style={{ backgroundColor: `${theme.primary}` }}>Search</button>
+          {/* modal body */}
+          <div className='p-5'>
+            <div className='flex items-center'>
+              {checkBox}
+              <div className='font-bold min-w-fit' style={{ color: `${theme.textColor}` }}>Full time only</div>
+            </div>
+            <button className='py-3 mt-5 w-full text-center rounded-lg text-white font-bold focus:outline-none search-btn' style={{ backgroundColor: `${theme.primary}` }}>Search</button>
+          </div>
         </div>
-      </div>
-    </div>) : '';
+      </div >
+    ) : '';
 
-  // useLayoutEffect(() => {
-  //   document.querySelector('._backdrop').addEventListener('click', function () {
-  //     console.log('click')
-  //     handleClose();
-  //   })
-  // }, []);
+
 
 
   return (
@@ -95,6 +99,7 @@ export default function SearchAndFilter() {
 
       {/* mobile modal */}
       {mobileModal}
+
 
     </div>
   )
