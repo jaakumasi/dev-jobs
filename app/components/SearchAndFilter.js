@@ -5,7 +5,7 @@ import searchIcon from '../../public/assets/desktop/icon-search.svg';
 import locationIcon from '../../public/assets/desktop/icon-location.svg';
 import checkIcon from '../../public/assets/desktop/icon-check.svg';
 import filterIcon from '../../public/assets/mobile/icon-filter.svg';
-import useScreenWidth from '../_shared/utilities';
+import { useScreenWidth } from '../_shared/utilities';
 import { SCREEN } from '../_shared/constants';
 
 
