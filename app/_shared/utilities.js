@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-const useScreenWidth = () => {
+export const useScreenWidth = () => {
   const [screenWidth, setScreenWidth] = useState(null);
 
   useEffect(() => {
@@ -21,4 +21,12 @@ const useScreenWidth = () => {
   return screenWidth;
 };
 
-export default useScreenWidth;
+export const API = async (url, method, headers, body) => {
+  const response = await fetch(url, {
+    method: method,
+    headers: !headers ? { 'Content-Type': 'application/json' } : headers,
+    body: JSON.stringify(body)
+  });
+  const json = await response.json();
+  return json;
+}
