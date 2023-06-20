@@ -18,6 +18,7 @@ const commonTheme = {
 
 const lightTheme = {
   ...commonTheme,
+  mode: 'l',
   background: "#F4F6F8",
   secondary: "#FFFFFF",
   textColor: "#19202D"
@@ -25,15 +26,19 @@ const lightTheme = {
 
 const darkTheme = {
   ...commonTheme,
+  mode: 'd',
   background: "#121721",
   secondary: "#19202D",
-  textColor: "#FFFFFF"
+  textColor: "#FFFFFF",
+  textColorGray: "#6E8098",
+  textColorBlue: "#0668EA",
 }
 
 const Content = styled.div`
   background-color: ${({ theme }) => theme.background};
-  width: 100vw;
-  height: 100vh !important;
+  height: fit-content;
+  min-height: 100vh;
+  overflow-x: hidden;
 `;
 
 export default function RootLayout({ children }) {
@@ -45,6 +50,7 @@ export default function RootLayout({ children }) {
 
   return (
     <html lang="en">
+      <meta name='theme-color' content={`${isLightTheme ? lightTheme.background : darkTheme.background}`}/>
       <body>
         <ThemeProvider theme={isLightTheme ? lightTheme : darkTheme}>
           <Context.Provider value={{ toggleTheme }}>

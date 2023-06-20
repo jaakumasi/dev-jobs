@@ -1,16 +1,13 @@
-'use client';
+"use client";
 
-import DashBoardBG from './components/DashBoardBG'
-import SearchAndFilter from './components/SearchAndFilter'
+import DashBoard from "./components/DashBoard";
+import JobsSection from "./components/JobsSection";
 
 export default function Home() {
-
   return (
-    <div>
-      <DashBoardBG />
-      <SearchAndFilter />
-    </div>
-
-
+    <>
+      <DashBoard />
+      <JobsSection />
+    </>
   )
 }

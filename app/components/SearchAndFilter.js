@@ -77,7 +77,7 @@ export default function SearchAndFilter() {
         <div className='pl-7 md:pl-5 sm:pl-4 flex items-center col-span-4 md:col-span-4'>
           {checkBox}
           <div className='font-bold min-w-fit' style={{ color: `${theme.textColor}` }} >{`${screenWidth >= SCREEN.LARGE ? 'Full time only' : 'Full time'}`}</div>
-          <button className='py-3 3xl:px-14 2xl:px-8 md:px-6 sm:px-5 ml-7 2xl:ml-5 md:ml-5 rounded-lg text-white font-bold focus:outline-none search-btn' style={{ backgroundColor: `${theme.primary}` }}>Search</button>
+          <button className='py-3 3xl:px-14 2xl:px-8 md:px-4 sm:px-5 ml-7 2xl:ml-5 md:ml-5 rounded-lg text-white font-bold focus:outline-none search-btn' style={{ backgroundColor: `${theme.primary}` }}>Search</button>
         </div>
       </div>
 

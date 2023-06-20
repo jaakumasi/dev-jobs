@@ -1,6 +1,5 @@
 import Image from 'next/image';
 import React, { useContext } from 'react'
-import bgPatternHeaderDestop from '../../public/assets/desktop/bg-pattern-header.svg';
 import iconSun from '../../public/assets/desktop/icon-sun.svg';
 import iconMoon from '../../public/assets/desktop/icon-moon.svg';
 import { Context } from '../_shared/context';
@@ -12,7 +11,7 @@ export default function DashBoardBG() {
 
     return (
         <div className='relative flex justify-center dashboard-bg -mt-5'>
-            <div className='w-[70%] md:w-[90%] mt-[4.4rem] md:mt-[2.4rem] flex z-10 justify-between font-bold'>
+            <div className='w-[70%] mt-[4.4rem] md:w-[90%] md:mt-[4rem] sm:mt-[3rem] flex z-10 justify-between font-bold'>
                 <div className='text-white text-3xl'>devjobs</div>
                 <div className='mt-2 flex h-fit items-center' onClick={() => {
                     toggleTheme();
