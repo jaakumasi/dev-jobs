@@ -43,3 +43,18 @@
 .search-btn:hover {
     background-color: var(--hover1) !important;
 }
+
+
+/* job specs role section */
+._custom-role-list {
+    list-style: none !important;
+    list-style-position: outside !important;
+    counter-reset: custom-counter;
+}
+
+._custom-role-list li:before {
+    content: counter(custom-counter);
+    counter-increment: custom-counter;
+    margin-right: 1.75rem;
+    text-indent: -1.5em;
+}
