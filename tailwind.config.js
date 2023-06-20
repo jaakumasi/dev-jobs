@@ -14,6 +14,7 @@ module.exports = {
       },
       colors: {
         primary: '#5964E0',
+        textColorGray: '#6E8098',
       },
     },
     screens: {
