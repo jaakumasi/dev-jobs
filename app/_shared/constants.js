@@ -6,3 +6,15 @@ export const SCREEN = {
     MEDIUM: 768,
     SMALL: 640
 }
+
+export const REQUEST_METHOD = {
+    GET: 'GET',
+    POST: 'POST',
+    PUT: 'PUT',
+    PATCH: 'PATCH',
+}
+
+export const CLIENT_ROUTES = {
+    HOME: '/',
+    JOB_SPECS: '/job-specs'
+}
