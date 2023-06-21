@@ -4,19 +4,23 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import qs from 'qs';
-import { CLIENT_ROUTES } from '../_shared/constants';
+import { CLIENT_ROUTES, SESSION } from '../_shared/constants';
 
 export default function Job({ job }) {
     const theme = useTheme();
     const [URL, setURL] = useState('');
 
+    // const handleNavigate = () => {
+    //     const queryString = qs.stringify(job);
+    //     setURL(`${CLIENT_ROUTES.JOB_SPECS}/?${queryString}`);
+    // };
+
     const handleNavigate = () => {
-        const queryString = qs.stringify(job);
-        setURL(`${CLIENT_ROUTES.JOB_SPECS}/?${queryString}`);
+        sessionStorage.setItem(SESSION.JOB_SPECS, JSON.stringify(job));
     };
 
     return (
-        <Link href={URL}>
+        <Link href={`${CLIENT_ROUTES.JOB_SPECS}`}>
             <div className='relative pt-10 px-6 pb-7 rounded-lg'
                 style={{ backgroundColor: `${theme.secondary}` }}
                 onClick={handleNavigate}

@@ -2,10 +2,8 @@
 
 import { useTheme } from "@emotion/react";
 import Image from "next/image";
-// import { useSearchParams } from "next/navigation";
 import { useScreenWidth } from "../_shared/utilities";
-import { SCREEN } from "../_shared/constants";
-import qs from "qs";
+import { SCREEN, SESSION } from "../_shared/constants";
 
 export default function JobSpecs() {
   const theme = useTheme();
@@ -24,7 +22,7 @@ export default function JobSpecs() {
     description,
     requirements,
     role
-  } = qs.parse(window.location.href, { ignoreQueryPrefix: true });
+  } = JSON.parse(sessionStorage.getItem(SESSION.JOB_SPECS));
 
   const requirementsItems = (
     <div className="mb-7">
@@ -58,8 +56,8 @@ export default function JobSpecs() {
   /* theme variables */
   const mode = theme.mode;
   const mainBackgroundColor = theme.secondary;
-  const companySiteColor = mode === 'l' ? theme.primary : theme.textColor;
-  const companySiteBackgroundColor = mode === 'l' ? '#c3e0de8c' : '#444c57';
+  const companySiteColor = mode === 'l' ? theme.primary : screenWidth <= SCREEN.SMALL ? theme.primary : theme.textColor;
+  const companySiteBackgroundColor = mode === 'l' ? '#c3e0de8c' : screenWidth <= SCREEN.SMALL ? '#5964E019' :'#444c57';
   const textColorGray = theme.textColorGray;
 
 
@@ -75,8 +73,8 @@ export default function JobSpecs() {
           ><Image alt='job logo' src={`${logo}`} width={companyLogoDimensions} height={companyLogoDimensions} />
           </div>
 
-          <div className="flex flex-col justify-center items-start col-span-5">
-            <div className="font-bold text-2xl mb-2 sm:text-center"
+          <div className="flex flex-col justify-center items-start sm:items-center col-span-5">
+            <div className="font-bold text-2xl sm:text-xl mb-2"
               style={{ color: `${theme.textColor}` }}
             >{company}
             </div>
@@ -95,24 +93,27 @@ export default function JobSpecs() {
         </div>
 
         {/* full job specs */}
-        <div className="mt-5 rounded-md p-12" style={{ backgroundColor: mainBackgroundColor }}>
-          {/* postedAt & contract */}
-          <div className="flex text-[#6E8098]">
-            <span>{postedAt}</span>
-            <span className='mr-3 ml-3 font-extrabold'>.</span>
-            <span>{contract}</span>
-          </div>
-
-          {/* role, apply now & location */}
+        <div className="mt-7 rounded-md p-12 sm:px-6" style={{ backgroundColor: mainBackgroundColor }}>
+          {/* postedAt, position, apply now & location */}
           <div className="mb-7">
-            <div className='mb-1 flex justify-between'>
-              {/* position */}
-              <div className="text-[1.75rem] font-bold"
-                style={{ color: `${theme.textColor}` }}
-              >{position}
+            <div className='mb-1 flex sm:flex-col justify-between items-center'>
+              <div>
+                {/* postedAt & contract */}
+                <div className="flex text-[#6E8098]">
+                  <span>{postedAt}</span>
+                  <span className='mr-3 ml-3 font-extrabold'>.</span>
+                  <span>{contract}</span>
+                </div>
+                {/* position */}
+                <div className="text-[1.75rem] sm:text-[1.5rem] font-bold"
+                  style={{ color: `${theme.textColor}` }}
+                >{position}
+                </div>
+                {/* location */}
+                <div className='text-[#5964E0] font-bold text-sm mt-2'>{location}</div>
               </div>
-
-              <button className='py-3 px-6 rounded-lg text-white font-bold focus:outline-none flex justify-center items-center search-btn'
+              {/* apply */}
+              <button className='py-3 px-7 h-fit sm:mt-12 sm:w-full rounded-lg text-white font-bold focus:outline-none flex justify-center items-center primary-btn'
                 style={{ backgroundColor: `${theme.primary}` }}
                 onClick={handleApply}
               >Apply Now
@@ -120,7 +121,6 @@ export default function JobSpecs() {
 
             </div>
 
-            <div className='text-[#5964E0] font-bold text-sm'>{location}</div>
           </div>
 
           {/* description */}
@@ -157,19 +157,19 @@ export default function JobSpecs() {
       </div>
 
       {/* footer */}
-      <div className="w-screen py-4 mt-20 flex justify-center"
+      <div className="w-screen py-4 sm:py-6 mt-20 flex justify-center"
         style={{ backgroundColor: mainBackgroundColor }}
       >
-        <div className="w-[45%] md:w-[90%] flex justify-between">
-          <div className="flex flex-col">
+        <div className="w-[45%] md:w-[90%] flex justify-between items-center">
+          <div className="sm:hidden flex flex-col">
             <div className="text-[1.25rem] font-bold mb-1"
               style={{ color: `${theme.textColor}` }}
             >{position}
             </div>
-            <div className='text-[#5964E0] font-bold text-sm'>{location}</div>
+            <div className='text-textColorGray'>{company}</div>
           </div>
 
-          <button className='py-1 px-6 rounded-lg text-white font-bold focus:outline-none flex justify-center items-center search-btn'
+          <button className='py-3 px-8 h-fit sm:w-full rounded-lg text-white font-bold focus:outline-none flex justify-center items-center primary-btn'
             style={{ backgroundColor: `${theme.primary}` }}
             onClick={handleApply}
           >Apply Now
