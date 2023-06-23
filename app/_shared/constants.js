@@ -18,3 +18,17 @@ export const CLIENT_ROUTES = {
     HOME: '/',
     JOB_SPECS: '/job-specs'
 }
+
+export const SERVER_ROUTES = {
+    JOB: '/api/job',
+}
+// session storage items
+export const SESSION = {
+    JOB_SPECS: 'job-specs',
+}
+
+export const JOB_CONTRACT = {
+    FULLTIME: 'Full Time',
+    PARTTIME: 'Part Time',
+    FREELANCE: 'Freelance',
+}
