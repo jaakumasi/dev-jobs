@@ -3,7 +3,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
-import qs from 'qs';
 import { CLIENT_ROUTES, SESSION } from '../_shared/constants';
 
 export default function Job({ job }) {
@@ -31,13 +30,13 @@ export default function Job({ job }) {
                 </div>
 
                 {/* postedAt & contract */}
-                <div className='flex mb-4 text-[#0668EA]' style={{ color: `${theme.mode === 'd' ? theme.textColorGray : ''}` }}>
+                <div className='flex mb-[0.4rem] text-[#0668EA]' style={{ color: `${theme.mode === 'd' ? theme.textColorGray : ''}` }}>
                     <span>{job.postedAt}</span>
                     <span className='mr-3 ml-3 font-extrabold'>.</span>
                     <span>{job.contract}</span>
                 </div>
 
-                <div className='font-bold text-lg mb-1 hover:text-[#6E8098]' // <<<<<<<<<<<<<<<<<<<<<
+                <div className='font-bold text-lg mb-[0.4rem] hover:text-[#6E8098] _job-position' // <<<<<<<<<<<<<<<<<<<<<
                     style={{ color: `${theme.textColor}` }}
                 >{job.position}
                 </div>

@@ -1,6 +1,8 @@
 :root {
-    --hover1: #939BF4;
+    --hover1: #a6acf3;
     --hover2: #cbcbcb;
+    --hover3: #6e747c;
+    --primary: #5964E0;
 }
 
 /* dashboard background, theme toggle */
@@ -23,11 +25,13 @@
         background-image: url('../../public/assets/desktop/bg-pattern-header.svg');
     }
 }
+
 @media only screen and (max-width: 768px) {
     .dashboard-bg {
         background-image: url('../../public/assets/tablet/bg-pattern-header.svg');
     }
 }
+
 @media only screen and (max-width: 640px) {
     .dashboard-bg {
         background-image: url('../../public/assets/mobile/bg-pattern-header.svg');
@@ -40,21 +44,27 @@
     background-color: var(--hover2) !important;
 }
 
-.search-btn:hover {
+.search-btn:hover,
+.primary-btn:hover,
+._company-site-btn:hover {
     background-color: var(--hover1) !important;
 }
 
+._company-site-btn-dark:hover {
+    background-color: var(--hover3) !important;
+}
 
-/* job specs role section */
 ._custom-role-list {
-    list-style: none !important;
-    list-style-position: outside !important;
     counter-reset: custom-counter;
 }
 
-._custom-role-list li:before {
+.custom-role-list-number::before {
     content: counter(custom-counter);
     counter-increment: custom-counter;
-    margin-right: 1.75rem;
-    text-indent: -1.5em;
+    margin-right: 1.25rem;
+    font-weight: bold;
+}
+
+._job-position:hover {
+    color: var(--hover3) !important;
 }

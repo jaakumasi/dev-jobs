@@ -1,10 +1,11 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ThemeProvider } from '@emotion/react';
 import styled from '@emotion/styled';
 import './globals.css'
 import { Context } from './_shared/context';
+import DashBoardBG from './components/DashBoardBG';
 
 export const metadata = {
   title: 'Devjobs',
@@ -43,18 +44,31 @@ const Content = styled.div`
 
 export default function RootLayout({ children }) {
   const [isLightTheme, setIsLightTheme] = useState(true);
+  const [filterObj, setFilterObj] = useState({});
+
+  /* set the initial theme to the client's preference */
+  useEffect(() => {
+    const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
+    if (darkModeMediaQuery.matches) setIsLightTheme(false);
+    else setIsLightTheme(true);
+  }, []);
 
   const toggleTheme = () => {
     setIsLightTheme(!isLightTheme);
   }
 
+  const updateFilterObj = (obj) => {
+    setFilterObj(obj);
+  }
+
   return (
     <html lang="en">
-      <meta name='theme-color' content={`${isLightTheme ? lightTheme.background : darkTheme.background}`}/>
+      <meta name='theme-color' content={`${isLightTheme ? lightTheme.background : darkTheme.background}`} />
       <body>
         <ThemeProvider theme={isLightTheme ? lightTheme : darkTheme}>
-          <Context.Provider value={{ toggleTheme }}>
+          <Context.Provider value={{ toggleTheme, filterObj, updateFilterObj }}>
             <Content>
+              <DashBoardBG />
               {children}
             </Content>
           </Context.Provider>

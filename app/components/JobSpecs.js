@@ -2,12 +2,14 @@
 
 import { useTheme } from "@emotion/react";
 import Image from "next/image";
-import { useScreenWidth } from "../_shared/utilities";
+import { useState } from "react";
+import { useScreenWidth } from "../_shared/client_utilities";
 import { SCREEN, SESSION } from "../_shared/constants";
 
 export default function JobSpecs() {
   const theme = useTheme();
   const screenWidth = useScreenWidth();
+  const [companySiteBtnIsHovered, setCompanySiteBtnIsHovered] = useState(false);
 
   const {
     company,
@@ -36,29 +38,39 @@ export default function JobSpecs() {
   )
 
   const roleItems = (
-    <ol className='mb-7 _custom-role-list'>
-      {role?.items.map(item =>
+    <div className='mb-7 _custom-role-list'>
+      {/* {role?.items.map(item =>
         <li key={Math.random()}
           className='text-textColorGray mb-2'>{item}</li>
+      )} */}
+      {role?.items?.map(item =>
+        <div className="flex custom-role-list-number" style={{color: `${theme.primary}`}}>
+          <div className="text-textColorGray mb-2">
+            {item}
+          </div>
+        </div>
       )}
-    </ol>
-    // <div className="mb-7 _custom-role-list">
-    //   {role?.items?.map(item =>
-    //     <div key={Math.random()} className='text-textColorGray _custom-role-list-item'>{item}</div>
-    //   )}
-    // </div>
+
+
+    </div >
   )
 
   const handleWebsite = () => window.location.assign(website);
   const handleApply = () => window.location.href = apply;
+  const handleCompanySiteMouseEnter = () => setCompanySiteBtnIsHovered(true);
+  const handleCompanySiteMouseLeave = () => setCompanySiteBtnIsHovered(false);
 
   const companyLogoDimensions = screenWidth <= SCREEN.SMALL ? 25 : 70;
   /* theme variables */
   const mode = theme.mode;
   const mainBackgroundColor = theme.secondary;
   const companySiteColor = mode === 'l' ? theme.primary : screenWidth <= SCREEN.SMALL ? theme.primary : theme.textColor;
-  const companySiteBackgroundColor = mode === 'l' ? '#c3e0de8c' : screenWidth <= SCREEN.SMALL ? '#5964E019' :'#444c57';
+  const companySiteBackgroundColor = mode === 'l' ? '#c3e0de8c' : screenWidth <= SCREEN.SMALL ? '#5964E019' : '#444c57';
   const textColorGray = theme.textColorGray;
+  const companySiteHoverColor = {
+    'd': 'hover:bg-["#6e747c"]',
+    'l': 'hover:bg-["#939BF4"]'
+  }
 
 
 
@@ -84,8 +96,10 @@ export default function JobSpecs() {
           </div>
 
           <div className="col-span-4 flex justify-center items-center">
-            <button className='py-3 px-6 rounded-lg text-white font-bold focus:outline-none flex justify-center items-center search-btn'
+            <button className={`py-3 px-6 rounded-lg text-white font-bold focus:outline-none flex justify-center items-center ${companySiteBtnIsHovered ? theme.mode === 'd' ? '_company-site-btn-dark' : '_company-site-btn': ''} `}
               style={{ color: companySiteColor, backgroundColor: companySiteBackgroundColor }}
+              /* this is for handling hover states for the Company Site btn since the states differ depending on the theme */
+              onMouseOver={handleCompanySiteMouseEnter} onMouseLeave={handleCompanySiteMouseLeave}
               onClick={handleWebsite}
             >Company Site
             </button>
