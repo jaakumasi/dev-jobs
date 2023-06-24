@@ -2,7 +2,7 @@
 
 import { useTheme } from "@emotion/react";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useScreenWidth } from "../_shared/client_utilities";
 import { SCREEN, SESSION } from "../_shared/constants";
 
@@ -11,6 +11,11 @@ export default function JobSpecs() {
   const screenWidth = useScreenWidth();
   const [companySiteBtnIsHovered, setCompanySiteBtnIsHovered] = useState(false);
 
+  /* ensuring that sessionStorage is run solely on the client side */
+  let jobSpecs;
+  if(typeof window !== 'undefined') {
+    jobSpecs = JSON.parse(sessionStorage.getItem(SESSION.JOB_SPECS));
+  }
   const {
     company,
     logo,
@@ -24,7 +29,7 @@ export default function JobSpecs() {
     description,
     requirements,
     role
-  } = JSON.parse(sessionStorage.getItem(SESSION.JOB_SPECS));
+  } = jobSpecs;
 
   const requirementsItems = (
     <div className="mb-7">
