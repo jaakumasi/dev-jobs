@@ -60,11 +60,11 @@ export default function RootLayout({ children }) {
 
   return (
     <html lang="en">
-      <Head>
+      {/* <Head> */}
         <meta name='theme-color' content={`${isLightTheme ? lightTheme.background : darkTheme.background}`} />
         <meta name='description' content='A platform for searching and browsing developer job listings. Filter job searches to your specific criteria.' />
         <title>Devjobs</title>
-      </Head>
+      {/* </Head> */}
       <body>
         <ThemeProvider theme={isLightTheme ? lightTheme : darkTheme}>
           <Context.Provider value={{ toggleTheme, filterObj, updateFilterObj }}>
