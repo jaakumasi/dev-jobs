@@ -54,8 +54,8 @@ export default function JobSpecs() {
     </div >
   )
 
-  const handleWebsite = () => window.location.assign(website);
-  const handleApply = () => window.location.href = apply;
+  const handleWebsite = () => window.location.assign(jobSpecs?.website);
+  const handleApply = () => window.location.assign(jobSpecs?.apply);
   const handleCompanySiteMouseEnter = () => setCompanySiteBtnIsHovered(true);
   const handleCompanySiteMouseLeave = () => setCompanySiteBtnIsHovered(false);
 
