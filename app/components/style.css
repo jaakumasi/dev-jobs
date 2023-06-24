@@ -61,7 +61,7 @@
 .custom-role-list-number::before {
     content: counter(custom-counter);
     counter-increment: custom-counter;
-    margin-right: 1.25rem;
+    margin-right: 1.75rem;
     font-weight: bold;
 }
 
