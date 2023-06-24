@@ -1,4 +1,4 @@
-'use clent';
+'use client';
 
 import { useTheme } from "@emotion/react";
 import Image from "next/image";
@@ -39,10 +39,6 @@ export default function JobSpecs() {
 
   const roleItems = (
     <div className='mb-7 _custom-role-list'>
-      {/* {role?.items.map(item =>
-        <li key={Math.random()}
-          className='text-textColorGray mb-2'>{item}</li>
-      )} */}
       {role?.items?.map(item =>
         <div className="flex custom-role-list-number" style={{color: `${theme.primary}`}}>
           <div className="text-textColorGray mb-2">
@@ -50,8 +46,6 @@ export default function JobSpecs() {
           </div>
         </div>
       )}
-
-
     </div >
   )
 
