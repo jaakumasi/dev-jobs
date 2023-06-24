@@ -1,16 +1,13 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
+import Head from 'next/head';
 import { ThemeProvider } from '@emotion/react';
 import styled from '@emotion/styled';
 import './globals.css'
 import { Context } from './_shared/context';
 import DashBoardBG from './components/DashBoardBG';
 
-export const metadata = {
-  title: 'Devjobs',
-  description: '',
-}
 
 const commonTheme = {
   primary: '#5964E0',
@@ -63,7 +60,11 @@ export default function RootLayout({ children }) {
 
   return (
     <html lang="en">
-      <meta name='theme-color' content={`${isLightTheme ? lightTheme.background : darkTheme.background}`} />
+      <Head>
+        <meta name='theme-color' content={`${isLightTheme ? lightTheme.background : darkTheme.background}`} />
+        <meta name='description' content='A platform for searching and browsing developer job listings. Filter job searches to your specific criteria.' />
+        <title>Devjobs</title>
+      </Head>
       <body>
         <ThemeProvider theme={isLightTheme ? lightTheme : darkTheme}>
           <Context.Provider value={{ toggleTheme, filterObj, updateFilterObj }}>
