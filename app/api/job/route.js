@@ -23,28 +23,25 @@ export const POST = async (req) => {
                 const locationIsDefined = l ? true : false;
 
                 if (tocIsDefined && !locationIsDefined) {
-                    if ((fuzzy.filter(toLowerCase(toc), [toLowerCase(company)]).length !== 0 ||
-                        fuzzy.filter(toLowerCase(toc), [toLowerCase(position)]).length !== 0) &&
-                        f ? contract === JOB_CONTRACT.FULLTIME : false) {
-                        return true;
+                    if (fuzzy.filter(toLowerCase(toc), [toLowerCase(company)]).length !== 0 ||
+                        fuzzy.filter(toLowerCase(toc), [toLowerCase(position)]).length !== 0) {
+                        return f ? contract === JOB_CONTRACT.FULLTIME : true;
                     }
                 }
                 else if (!tocIsDefined && locationIsDefined) {
-                    if (fuzzy.filter(toLowerCase(l), [toLowerCase(location)]).length !== 0 &&
-                        f ? contract === JOB_CONTRACT.FULLTIME : false) {
-                        return true
+                    if (fuzzy.filter(toLowerCase(l), [toLowerCase(location)]).length !== 0) {
+                        return f ? contract === JOB_CONTRACT.FULLTIME : true;
                     };
                 }
                 else if (tocIsDefined && locationIsDefined) {
                     if ((fuzzy.filter(toLowerCase(toc), [toLowerCase(company)]).length !== 0 ||
                         fuzzy.filter(toLowerCase(toc), [toLowerCase(position)]).length !== 0) &&
-                        fuzzy.filter(toLowerCase(l), [toLowerCase(location)]).length !== 0 &&
-                        f ? contract === JOB_CONTRACT.FULLTIME : false) {
-                        return true;
+                        fuzzy.filter(toLowerCase(l), [toLowerCase(location)]).length !== 0) {
+                        return f ? contract === JOB_CONTRACT.FULLTIME : true;
                     }
                 }
                 else if (!tocIsDefined && !locationIsDefined) {
-                    return f ? contract === JOB_CONTRACT.FULLTIME : false;
+                    return f ? contract === JOB_CONTRACT.FULLTIME : true;
                 }
                 else {
                     return false;
