@@ -181,7 +181,7 @@ export default function JobSpecs() {
               style={{ color: `${theme.textColor}` }}
             >{jobSpecs?.position}
             </div>
-            <div className='text-textColorGray'>{jobSpecs?.company}</div>
+            <div className='text-textColorGray'>So Digital Inc.</div>
           </div>
 
           <button className='py-3 px-8 h-fit sm:w-full rounded-lg text-white font-bold focus:outline-none flex justify-center items-center primary-btn'

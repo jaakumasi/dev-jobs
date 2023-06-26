@@ -31,12 +31,11 @@ export default function JobsSection() {
       setJobComponents([]);
     }
     else {
-      const jobComponents =
-        <Suspense fallback={<h1>Loading...</h1>}>
-          <div className='w-[70%] md:w-[90%]  grid grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-x-6 gap-y-14'>
-            {jobs.map(job => <Job key={job.id} job={job} />)}
-          </div>
-        </Suspense>
+      const jobComponents = (
+        <div className='w-[70%] md:w-[90%]  grid grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-x-6 gap-y-14'>
+          {jobs.map(job => <Job key={job.id} job={job} />)}
+        </div>
+      )
       setJobMatchIsEmpty(false);
       setJobComponents(jobComponents);
     }
@@ -51,13 +50,10 @@ export default function JobsSection() {
   */
   useEffect(() => {
     if (isDOMLoaded) {
-      if ((JobComponents.props?.children.props.children.length !== 0 &&
-        JobComponents.props?.children.props.children.length >= BATCHSIZE) ||
-        jobMatchIsEmpty
-      ) setShowMoreBtn(true);
+      if (JobComponents.props?.children.length !== 0 &&
+        JobComponents.props?.children.length >= BATCHSIZE) setShowMoreBtn(true);
       else setShowMoreBtn(false);
     }
-
   }, [JobComponents, jobMatchIsEmpty])
 
   const handleLoadMore = () => {
