@@ -13,7 +13,7 @@ export default function JobSpecs() {
 
   /* ensuring that sessionStorage is run solely on the client side */
   let jobSpecs;
-  if(typeof window !== 'undefined') {
+  if (typeof window !== 'undefined') {
     jobSpecs = JSON.parse(sessionStorage.getItem(SESSION.JOB_SPECS));
   }
   // const {
@@ -36,7 +36,7 @@ export default function JobSpecs() {
       {jobSpecs?.requirements?.items?.map(item =>
         <div key={Math.random()} className='flex mb-2'>
           <div className='pr-7 -mt-[0.2rem] text-lg' style={{ color: `${theme.primary}` }}>•</div>
-          <div key={Math.random()} className='text-textColorGray'>{item}</div>
+          <div className='text-textColorGray'>{item}</div>
         </div>
       )}
     </div>
@@ -45,7 +45,9 @@ export default function JobSpecs() {
   const roleItems = (
     <div className='mb-7 _custom-role-list'>
       {jobSpecs?.role?.items?.map(item =>
-        <div className="flex custom-role-list-number" style={{color: `${theme.primary}`}}>
+        <div key={Math.random()}
+          className="flex custom-role-list-number"
+          style={{ color: `${theme.primary}` }}>
           <div className="text-textColorGray mb-2">
             {item}
           </div>
@@ -95,7 +97,7 @@ export default function JobSpecs() {
           </div>
 
           <div className="col-span-4 flex justify-center items-center">
-            <button className={`py-3 px-6 rounded-lg text-white font-bold focus:outline-none flex justify-center items-center ${companySiteBtnIsHovered ? theme.mode === 'd' ? '_company-site-btn-dark' : '_company-site-btn': ''} `}
+            <button className={`py-3 px-6 rounded-lg text-white font-bold focus:outline-none flex justify-center items-center ${companySiteBtnIsHovered ? theme.mode === 'd' ? '_company-site-btn-dark' : '_company-site-btn' : ''} `}
               style={{ color: companySiteColor, backgroundColor: companySiteBackgroundColor }}
               /* this is for handling hover states for the Company Site btn since the states differ depending on the theme */
               onMouseOver={handleCompanySiteMouseEnter} onMouseLeave={handleCompanySiteMouseLeave}
