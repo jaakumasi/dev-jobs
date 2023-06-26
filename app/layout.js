@@ -41,10 +41,13 @@ const Content = styled.div`
 
 export default function RootLayout({ children }) {
   const [isLightTheme, setIsLightTheme] = useState(true);
+  const [isDOMLoaded, setIsDOMLoaded] = useState(false);
   const [filterObj, setFilterObj] = useState({});
 
   /* set the initial theme to the client's preference */
   useEffect(() => {
+    setIsDOMLoaded(true);
+
     const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
     if (darkModeMediaQuery.matches) setIsLightTheme(false);
     else setIsLightTheme(true);
@@ -60,14 +63,21 @@ export default function RootLayout({ children }) {
 
   return (
     <html lang="en">
-      {/* <Head> */}
+      <head>
         <meta name='theme-color' content={`${isLightTheme ? lightTheme.background : darkTheme.background}`} />
         <meta name='description' content='A platform for searching and browsing developer job listings. Filter job searches to your specific criteria.' />
         <title>Devjobs web app</title>
-      {/* </Head> */}
+      </head>
       <body>
         <ThemeProvider theme={isLightTheme ? lightTheme : darkTheme}>
-          <Context.Provider value={{ toggleTheme, filterObj, updateFilterObj }}>
+          <Context.Provider value={
+            {
+              toggleTheme,
+              updateFilterObj,
+              filterObj,
+              isDOMLoaded
+            }}
+          >
             <Content>
               <DashBoardBG />
               {children}
