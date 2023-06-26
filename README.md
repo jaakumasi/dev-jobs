@@ -1,6 +1,6 @@
 # Dev Jobs
 
-A comprehensive Next.js web application for searching and browsing developer job listings.
+A Next.js web application for searching and browsing developer job listings.
 
 ## Table of Contents
 
