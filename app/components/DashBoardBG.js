@@ -6,15 +6,10 @@ import { Context } from '../_shared/context';
 import { useTheme } from '@emotion/react';
 
 export default function DashBoardBG() {
-    const [isDOMLoaded, setIsDOMLoaded] = useState(false);
-    const { toggleTheme } = useContext(Context);
+    const { toggleTheme, isDOMLoaded } = useContext(Context);
     const theme = useTheme();
 
     const themeToggler = useRef();
-
-    useEffect(() => {
-        setIsDOMLoaded(true);
-    }, [])
 
     useEffect(() => {
         if (isDOMLoaded && theme.mode === 'd') {
