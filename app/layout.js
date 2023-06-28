@@ -19,7 +19,9 @@ const lightTheme = {
   mode: 'l',
   background: "#F4F6F8",
   secondary: "#FFFFFF",
-  textColor: "#19202D"
+  textColor: "#19202D",
+  jobLoadingBG: "rgb(229, 231, 235)",
+  jobLoadingElems: "rgb(209, 213, 219)",
 }
 
 const darkTheme = {
@@ -30,6 +32,8 @@ const darkTheme = {
   textColor: "#FFFFFF",
   textColorGray: "#6E8098",
   textColorBlue: "#0668EA",
+  jobLoadingBG: "rgb(107, 114, 128)",
+  jobLoadingElems: "rgb(75, 85, 99)",
 }
 
 const Content = styled.div`
