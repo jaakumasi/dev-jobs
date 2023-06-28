@@ -4,6 +4,8 @@ import Job from './Job'
 import { API } from '../_shared/server_utilities';
 import { REQUEST_METHOD, SERVER_ROUTES } from '../_shared/constants'
 import { Context } from '../_shared/context';
+import JobsData from './JobsData';
+import JobsDataLoading from './JobsDataLoading';
 
 {/* number of jobs to fetch at a time if no filter obj is provided */ }
 const BATCHSIZE = 12;
@@ -11,12 +13,17 @@ const BATCHSIZE = 12;
 export default function JobsSection() {
   const theme = useTheme();
   const [batchSize, setBatchSize] = useState(BATCHSIZE);
-  const [JobComponents, setJobComponents] = useState([]);
   const [jobMatchIsEmpty, setJobMatchIsEmpty] = useState(false);
   const [showLoadMoreBtn, setShowMoreBtn] = useState(false);
-  const { filterObj, isDOMLoaded } = useContext(Context);
+  const [fetchedData, setFetchedData] = useState([]);
+  const [isFetchingData, setIsFetchingData] = useState(false);
+  const isJobsLoaded = fetchedData.length > 0 && !isFetchingData;
+  const { filterObj } = useContext(Context);
+
 
   const fetchBatch = async () => {
+    setIsFetchingData(true);
+
     const response = await API(
       SERVER_ROUTES.JOB,  // endpoint
       REQUEST_METHOD.POST, // method
@@ -25,40 +32,48 @@ export default function JobsSection() {
     );
     const jobs = response.data;
     if (jobs.length === 0) {
-      /* reset batch size */
-      setBatchSize(BATCHSIZE);
+      setFetchedData([]);
+      setBatchSize(BATCHSIZE); /* reset batch size */
       setJobMatchIsEmpty(true);
-      setJobComponents([]);
     }
     else {
-      const jobComponents = (
-        <div className='w-[70%] md:w-[90%]  grid grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-x-6 gap-y-14'>
-          {jobs.map(job => <Job key={job.id} job={job} />)}
-        </div>
-      )
+      setFetchedData(jobs);
       setJobMatchIsEmpty(false);
-      setJobComponents(jobComponents);
     }
+
+    setIsFetchingData(false);
   }
+
+
 
   useEffect(() => {
     fetchBatch();
   }, [batchSize, filterObj]);
 
+
   /* The 'Load More' button displays only when the job batch has been fetched 
    * or when the filtered batchsize is greater than BATCHSIZE
-  */
+   */
   useEffect(() => {
-    if (isDOMLoaded) {
-      if (JobComponents.props?.children.length !== 0 &&
-        JobComponents.props?.children.length >= BATCHSIZE) setShowMoreBtn(true);
-      else setShowMoreBtn(false);
+    const jobCount = fetchedData.length;
+    console.log('job count: ', jobCount);
+
+    if (jobCount !== 0 && jobCount >= BATCHSIZE) {
+      // setIsJobsLoaded(true);
+      setShowMoreBtn(true);
     }
-  }, [JobComponents, jobMatchIsEmpty])
+    else {
+      // setIsJobsLoaded(false);
+      setShowMoreBtn(false);
+    }
+
+  }, [fetchedData, jobMatchIsEmpty]);
+
 
   const handleLoadMore = () => {
     setBatchSize(batchSize => batchSize += BATCHSIZE);
   }
+
 
   const EmptyMatchComponent = (
     <div className='w-[70%] md:w-[90%] py-5 rounded-lg text-center'
@@ -67,19 +82,30 @@ export default function JobsSection() {
     </div>
   )
 
+
   const LoadMoreBtn = showLoadMoreBtn ?
-    (<div className='w-full flex justify-center -mt-10 mb-24 sm:mb-20'>
-      <button className='py-3 px-6 rounded-lg text-white font-bold focus:outline-none flex justify-center items-center search-btn'
-        style={{ backgroundColor: `${theme.primary}` }}
-        onClick={handleLoadMore}
-      >Load more
-      </button>
-    </div>) : '';
+    (
+      <div className='w-full flex justify-center -mt-10 mb-24 sm:mb-20'>
+        <button className='py-3 px-6 rounded-lg text-white font-bold focus:outline-none flex justify-center items-center search-btn'
+          style={{ backgroundColor: `${theme.primary}` }}
+          onClick={handleLoadMore}
+        >Load more
+        </button>
+      </div>
+    ) : '';
+
+
 
   return (
     <>
       <div className='w-screen h-fit mt-24 sm:mt-8 pb-24 flex justify-center'>
-        {jobMatchIsEmpty ? EmptyMatchComponent : JobComponents}
+        {
+          jobMatchIsEmpty ?
+            EmptyMatchComponent :
+            isJobsLoaded ?
+              <JobsData data={fetchedData} /> :
+              <JobsDataLoading batchSize={BATCHSIZE} />
+        }
       </div>
 
       {LoadMoreBtn}
