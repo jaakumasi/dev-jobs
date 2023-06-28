@@ -40,6 +40,13 @@ export default function SearchAndFilter() {
     updateFilterObj({ titleOrCompany, location, fullTimeOnly });
   }
 
+  /* trigger search when enter key is hit in the search fields */
+  const handleKeyDown = (e) => {
+    if(e.key === 'Enter') {
+      handleSearch();      
+    }
+  }
+
   const bgColor = fullTimeOnly ? `${theme.primary}` : theme.mode === 'd' ? '#575757' : '#E7E7E7';
   const checkBox = (
     <div className={`w-5 h-5 mr-2 p-1 flex justify-center items-center rounded-sm ${fullTimeOnly ? '' : 'fulltime-only-checkbox'} hover:cursor-pointer`}
@@ -98,6 +105,7 @@ export default function SearchAndFilter() {
             ref={titleInputRef}
             className='w-full pr-5 focus:outline-none' style={{ backgroundColor: `${theme.secondary}`, color: `${theme.textColor}` }}
             placeholder={`${screenWidth >= SCREEN.LARGE ? 'Filter by title, company, expertise...' : 'Filter by title...'}`}
+            onKeyDown={handleKeyDown}
           />
         </div>
         <div className='py-7 pl-6 sm:pl-4 flex col-span-3 md:col-span-4 hover:cursor-pointer border-r-[1px]' style={{ borderColor: `${theme.background}` }}>
@@ -106,6 +114,7 @@ export default function SearchAndFilter() {
             ref={locationInputRef}
             className='w-full pr-5 focus:outline-none' style={{ backgroundColor: `${theme.secondary}`, color: `${theme.textColor}` }}
             placeholder='Filter by location...'
+            onKeyDown={handleKeyDown}
           />
         </div>
         <div className='pl-7 md:pl-5 sm:pl-4 flex items-center col-span-4 md:col-span-4'>
