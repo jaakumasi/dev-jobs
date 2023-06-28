@@ -15,21 +15,8 @@ export default function JobSpecs() {
   let jobSpecs;
   if (typeof window !== 'undefined') {
     jobSpecs = JSON.parse(sessionStorage.getItem(SESSION.JOB_SPECS));
+    if(!jobSpecs) window.location.href = '/';
   }
-  // const {
-  //   company,
-  //   logo,
-  //   logoBackground,
-  //   position,
-  //   postedAt,
-  //   contract,
-  //   location,
-  //   website,
-  //   apply,
-  //   description,
-  //   requirements,
-  //   role
-  // } = jobSpecs;
 
   const requirementsItems = (
     <div className="mb-7">
