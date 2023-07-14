@@ -1,32 +1,31 @@
-'use client';
+"use client";
 
-import React, { useEffect, useState } from 'react';
-import Head from 'next/head';
-import { ThemeProvider } from '@emotion/react';
-import styled from '@emotion/styled';
-import './globals.css'
-import { Context } from './_shared/context';
-import DashBoardBG from './components/DashBoardBG';
-
+import React, { useEffect, useState } from "react";
+import { ThemeProvider } from "@emotion/react";
+import styled from "@emotion/styled";
+import "./globals.css";
+import { Context } from "./_shared/context";
+import DashBoardBG from "./components/DashBoardBG";
+import { LOCALKEY } from "./_shared/constants";
 
 const commonTheme = {
-  primary: '#5964E0',
-  hover: '#939BF4'
-}
+  primary: "#5964E0",
+  hover: "#939BF4",
+};
 
 const lightTheme = {
   ...commonTheme,
-  mode: 'l',
+  mode: "l",
   background: "#F4F6F8",
   secondary: "#FFFFFF",
   textColor: "#19202D",
   jobLoadingBG: "rgb(229, 231, 235)",
   jobLoadingElems: "rgb(209, 213, 219)",
-}
+};
 
 const darkTheme = {
   ...commonTheme,
-  mode: 'd',
+  mode: "d",
   background: "#121721",
   secondary: "#19202D",
   textColor: "#FFFFFF",
@@ -34,7 +33,7 @@ const darkTheme = {
   textColorBlue: "#0668EA",
   jobLoadingBG: "rgb(107, 114, 128)",
   jobLoadingElems: "rgb(75, 85, 99)",
-}
+};
 
 const Content = styled.div`
   background-color: ${({ theme }) => theme.background};
@@ -52,34 +51,57 @@ export default function RootLayout({ children }) {
   useEffect(() => {
     setIsDOMLoaded(true);
 
-    const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
-    if (darkModeMediaQuery.matches) setIsLightTheme(false);
-    else setIsLightTheme(true);
+    const localTheme = localStorage.getItem(LOCALKEY.THEME);
+    /* 
+       If a local key exists, set the initial theme to the stored theme, 
+       otherwise use the prefered color scheme for the device 
+    */
+    if (localTheme) {
+      localTheme === "l" ? setIsLightTheme(true) : setIsLightTheme(false);
+    } else {
+      const darkModeMediaQuery = window.matchMedia(
+        "(prefers-color-scheme: dark)"
+      );
+      if (darkModeMediaQuery.matches) setIsLightTheme(false);
+      else setIsLightTheme(true);
+    }
   }, []);
+
+  useEffect(() => {
+    localStorage.setItem(LOCALKEY.THEME, isLightTheme ? "l" : "d");
+  }, [isLightTheme]);
 
   const toggleTheme = () => {
     setIsLightTheme(!isLightTheme);
-  }
+  };
 
   const updateFilterObj = (obj) => {
     setFilterObj(obj);
-  }
+  };
 
   return (
     <html lang="en">
       <head>
-        <meta name='theme-color' content={`${isLightTheme ? lightTheme.background : darkTheme.background}`} />
-        <meta name='description' content='A platform for searching and browsing developer job listings. Filter job searches to your specific criteria.' />
+        <meta
+          name="theme-color"
+          content={`${
+            isLightTheme ? lightTheme.background : darkTheme.background
+          }`}
+        />
+        <meta
+          name="description"
+          content="A platform for searching and browsing developer job listings. Filter job searches to your specific criteria."
+        />
         <title>Devjobs web app</title>
       </head>
       <body>
         <ThemeProvider theme={isLightTheme ? lightTheme : darkTheme}>
-          <Context.Provider value={
-            {
+          <Context.Provider
+            value={{
               toggleTheme,
               updateFilterObj,
               filterObj,
-              isDOMLoaded
+              isDOMLoaded,
             }}
           >
             <Content>
@@ -89,6 +111,6 @@ export default function RootLayout({ children }) {
           </Context.Provider>
         </ThemeProvider>
       </body>
-    </html >
-  )
+    </html>
+  );
 }

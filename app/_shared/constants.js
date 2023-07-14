@@ -1,3 +1,7 @@
+export const LOCALKEY = {
+    THEME: 'theme',
+}
+
 export const SCREEN = {
     XXXLARGE:  1600,
     XXLARGE:  1440,
