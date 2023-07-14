@@ -47,6 +47,10 @@ export default function RootLayout({ children }) {
   const [isDOMLoaded, setIsDOMLoaded] = useState(false);
   const [filterObj, setFilterObj] = useState({});
 
+  const handleScroll = () => {
+    console.log(document.querySelector('body').scrollTop);
+  }
+
   /* set the initial theme to the client's preference */
   useEffect(() => {
     setIsDOMLoaded(true);
@@ -65,6 +69,7 @@ export default function RootLayout({ children }) {
       if (darkModeMediaQuery.matches) setIsLightTheme(false);
       else setIsLightTheme(true);
     }
+
   }, []);
 
   useEffect(() => {

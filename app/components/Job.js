@@ -1,18 +1,11 @@
 import { useTheme } from '@emotion/react'
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { CLIENT_ROUTES, SESSION } from '../_shared/constants';
 
 export default function Job({ job }) {
     const theme = useTheme();
-    const [URL, setURL] = useState('');
-
-    // const handleNavigate = () => {
-    //     const queryString = qs.stringify(job);
-    //     setURL(`${CLIENT_ROUTES.JOB_SPECS}/?${queryString}`);
-    // };
 
     const handleNavigate = () => {
         sessionStorage.setItem(SESSION.JOB_SPECS, JSON.stringify(job));

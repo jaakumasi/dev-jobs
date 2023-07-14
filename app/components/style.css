@@ -6,15 +6,14 @@
 }
 
 /* dashboard background, theme toggler */
-.check {
-    /* transition-property: position; */
-    transition-duration: 2000ms;
-    transition-timing-function: ease-in-out;
+.check-toggle { 
+    transition-duration: 400ms;
+    transition-timing-function: ease;
+    transition-property: transform;
 }
 
-.check.active {
-    /* transition: 250ms ease-in-out; */
-    justify-content: flex-end;
+.check.active .check-toggle {
+    transform: translateX(150%);
 }
 
 .check:hover .check-toggle {
